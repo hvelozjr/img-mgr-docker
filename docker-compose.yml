@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  beanstalk-flask:
+    image: "267738384267.dkr.ecr.us-west-2.amazonaws.com/img-mgr"
+    ports:
+      - "80:5000"
