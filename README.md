@@ -1,6 +1,8 @@
 ## Image Manager containerized
 
-While having docker on your machine running execute `./setup.sh`. This will check out the application to your local machine and build the docker image.
+While having img-mgr-docker repo on your machine running execute `./setup.sh`. This will check out the application to your local machine and build the docker image. 
+
+There is a file called setup.sh that will be used with this lab. 
 
 Validate that the container is working by running it using:
 
