@@ -1,0 +1,127 @@
+
+#//////////////////////////
+#  Tuesday October 19 2021 
+#//////////////////////////
+
+WE ARE WORKING THE img-mgr-docker lab
+
+# RUNS A DOCKER CONTAINER IN UBUNTU
+docker run -it ubuntu bash
+
+
+# RUN A DOCKER CONTAINER AND LOG INTO IT 
+
+docker run -it --name batman alpine
+
+
+# RUN A DOCKER CONTAINER PRESITENTLY
+These are considered throw away containers...
+
+docker run -dt --restart always --name batman2 alpine
+
+
+# RUN A DOCKER CONTAINER AND HAVE IT REMOVED WHEN CLOSED. 
+
+docker run -it --name rm-test --rm alpine
+
+# RUN A DOCKER CONTAINE AND INSTALL NGINX
+start docker, install nginx, cp default.conf locally, and modify with data listed below, and finally cp back to batman docker image. 
+
+1. docker container start batman
+2. docker exec batman apk add nginx
+3. docker cp batman:/etc/nginx/http.d/default.conf .
+4. docker cp default.conf batman:/etc/nginx/http.d/default.conf
+
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/;
+}
+
+# CONFIRM DATA IS UPDATE TO DATE ON CONTAINER
+
+docker_linux_academy_lab larry.veloz$ docker exec batman cat /etc/nginx/http.d/default.conf
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/;
+}
+
+docker_linux_academy_lab larry.veloz$ cat default.conf 
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/;
+}
+
+# REMOVE DOCKER CONTAINERS
+
+docker rm <container_name>
+
+# WILL REMOVE ALL STOPPED CONTAINER
+
+docker container prune 
+
+# RENAME A RUNNING DOCKER COINTAINER 
+
+docker rename batman web01
+
+# CHECK THE STATS ON A DOCKER CONTAINER
+
+docker stats [<container-name-optional>]
+
+# ADD SITE TO DOCKER CONTAINER
+
+1. vim index.html and add hello world
+2. docker cp index.html web01:/var/www/
+3. docker exec -dt web01 nginx -g 'pid /tmp/nginx.pid; daemon off;'
+4. docker inspect web01 | grep IP
+5. curl IP 
+
+# ADD SITE TO PORT 80:80
+
+1. docker commit web01 web-base
+2. docker run -p 80:80 -dt --name web02 web-base
+3. docker exec -dt web02 nginx -g 'pid /tmp/nginx.pid; daemon off;'
+
+
+
+# I followed LA and still site does not come up. Very strange. 
+1.  docker container start a-container
+2.  docker run -it --name a-container alpine
+3.  docker container start a-container
+4.  docker exec a-container apk add nginx
+5.  docker exec -it a-container ash
+6.  docker cp a-container:/etc/nginx/conf.d/default.conf .
+7.  docker cp a-container:/etc/nginx/http.d/default.conf .
+8.  vim default.conf
+9.  docker cp default.conf a-container:/etc/nginx/conf.d/default.conf
+10. docker cp default.conf a-container:/etc/nginx/http.d/default.conf
+11. docker exec a-container cat /etc/nginx/http.d/default.conf
+12. docker rename a-container web01
+13. docker stats
+14. docker cp index.html web01:/var/www/
+15  docker exec -dt web01 nginx -g 'pid /tmp/nginx.pid; daemon off;'
+16. docker inspect web01 | grep IP
+17. curl 172.17.0.3
+18. docker commit web02 web-base
+19. docker run -p 80:80 -dt --name web02 web-base
+20. docker exec -dt web03 nginx -g 'pid /tmp/nginx.pid; daemon off;'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

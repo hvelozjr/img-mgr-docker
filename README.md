@@ -4,6 +4,7 @@ While having img-mgr-docker repo on your machine running execute `./setup.sh`. T
 
 ## There is a file called setup.sh that will be used with this lab. 
 
+
 Validate that the container is working by running it using:
 
 ```
